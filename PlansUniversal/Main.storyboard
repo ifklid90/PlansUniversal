@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="137" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="27"/>
+                        <viewControllerLayoutGuide type="bottom" id="28"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="18" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="20" width="560" height="70"/>
+                                <color key="backgroundColor" colorSpace="calibratedWhite" white="0.666666666666667" alpha="1"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сегодня" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                        <rect key="frame" x="7" y="24" width="154" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="39" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                        <rect key="frame" x="249.5" y="24" width="10.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint id="42" firstItem="18" firstAttribute="trailing" secondItem="39" secondAttribute="trailing" constant="20"/>
+                                    <constraint id="43" firstItem="39" firstAttribute="top" secondItem="18" secondAttribute="top" constant="24"/>
+                                    <constraint id="44" firstItem="18" firstAttribute="bottom" secondItem="39" secondAttribute="bottom" constant="25"/>
+                                    <constraint id="45" firstItem="38" firstAttribute="leading" secondItem="18" secondAttribute="leading" constant="7"/>
+                                    <constraint id="46" firstItem="38" firstAttribute="top" secondItem="18" secondAttribute="top" constant="24"/>
+                                    <constraint id="47" firstItem="18" firstAttribute="bottom" secondItem="38" secondAttribute="bottom" constant="25"/>
+                                    <constraint id="56" firstItem="18" firstAttribute="height" constant="70"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" id="64" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="98" width="560" height="70"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0" green="0" blue="1" alpha="1"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Завтра" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="69" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                        <rect key="frame" x="8" y="24" width="80" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="73" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                        <rect key="frame" x="498" y="24" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint id="70" firstItem="69" firstAttribute="top" secondItem="64" secondAttribute="top" constant="24"/>
+                                    <constraint id="71" firstItem="64" firstAttribute="bottom" secondItem="69" secondAttribute="bottom" constant="25"/>
+                                    <constraint id="72" firstItem="69" firstAttribute="leading" secondItem="64" secondAttribute="leading" constant="8"/>
+                                    <constraint id="74" firstItem="64" firstAttribute="trailing" secondItem="73" secondAttribute="trailing" constant="20"/>
+                                    <constraint id="75" firstItem="73" firstAttribute="top" secondItem="64" secondAttribute="top" constant="24"/>
+                                    <constraint id="76" firstItem="64" firstAttribute="bottom" secondItem="73" secondAttribute="bottom" constant="25"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" id="77" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="176" width="560" height="70"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="0.49803921568627452" blue="0" alpha="1"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Текущая неделя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="87" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                        <rect key="frame" x="7" y="24" width="144" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="88" translatesAutoresizingMaskIntoConstraints="NO">
+                                        <rect key="frame" x="529.5" y="24" width="10.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint id="89" firstItem="87" firstAttribute="leading" secondItem="77" secondAttribute="leading" constant="7"/>
+                                    <constraint id="90" firstItem="87" firstAttribute="top" secondItem="77" secondAttribute="top" constant="24"/>
+                                    <constraint id="91" firstItem="77" firstAttribute="bottom" secondItem="87" secondAttribute="bottom" constant="25"/>
+                                    <constraint id="92" firstItem="77" firstAttribute="trailing" secondItem="88" secondAttribute="trailing" constant="20"/>
+                                    <constraint id="93" firstItem="88" firstAttribute="top" secondItem="77" secondAttribute="top" constant="24"/>
+                                    <constraint id="94" firstItem="77" firstAttribute="bottom" secondItem="88" secondAttribute="bottom" constant="25"/>
+                                    <constraint id="95" firstItem="77" firstAttribute="trailing" secondItem="88" secondAttribute="trailing" constant="20"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" id="82" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="254" width="560" height="70"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0" green="1" blue="0" alpha="1"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Следующая неделя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="101" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                        <rect key="frame" x="6" y="24" width="161" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="105" translatesAutoresizingMaskIntoConstraints="NO">
+                                        <rect key="frame" x="529.5" y="24" width="10.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint id="102" firstItem="101" firstAttribute="leading" secondItem="82" secondAttribute="leading" constant="6"/>
+                                    <constraint id="103" firstItem="101" firstAttribute="top" secondItem="82" secondAttribute="top" constant="24"/>
+                                    <constraint id="104" firstItem="82" firstAttribute="bottom" secondItem="101" secondAttribute="bottom" constant="25"/>
+                                    <constraint id="106" firstItem="82" firstAttribute="trailing" secondItem="105" secondAttribute="trailing" constant="20"/>
+                                    <constraint id="107" firstItem="105" firstAttribute="top" secondItem="82" secondAttribute="top" constant="24"/>
+                                    <constraint id="108" firstItem="82" firstAttribute="bottom" secondItem="105" secondAttribute="bottom" constant="25"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="115" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                                <rect key="frame" x="204" y="550" width="207" height="30"/>
+                                <state key="normal" title="+">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="UIButton115_TouchUpInside:" destination="BYZ-38-t0r" id="116" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint id="31" firstItem="18" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20"/>
+                            <constraint id="32" firstItem="18" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20"/>
+                            <constraint id="65" firstItem="64" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="8"/>
+                            <constraint id="66" firstItem="8bC-Xf-vdC" firstAttribute="trailing" secondItem="64" secondAttribute="trailing" constant="20"/>
+                            <constraint id="67" firstItem="64" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20"/>
+                            <constraint id="68" firstItem="64" firstAttribute="height" secondItem="18" secondAttribute="height"/>
+                            <constraint id="78" firstItem="77" firstAttribute="top" secondItem="64" secondAttribute="bottom" constant="8"/>
+                            <constraint id="79" firstItem="8bC-Xf-vdC" firstAttribute="trailing" secondItem="77" secondAttribute="trailing" constant="20"/>
+                            <constraint id="80" firstItem="77" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20"/>
+                            <constraint id="81" firstItem="77" firstAttribute="height" secondItem="64" secondAttribute="height"/>
+                            <constraint id="83" firstItem="8bC-Xf-vdC" firstAttribute="trailing" secondItem="82" secondAttribute="trailing" constant="20"/>
+                            <constraint id="84" firstItem="82" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20"/>
+                            <constraint id="85" firstItem="82" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="8"/>
+                            <constraint id="86" firstItem="82" firstAttribute="height" secondItem="77" secondAttribute="height"/>
+                            <constraint id="117" firstItem="115" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX"/>
+                            <constraint id="118" firstItem="8bC-Xf-vdC" firstAttribute="bottom" secondItem="115" secondAttribute="bottom" constant="20"/>
+                            <constraint id="119" firstItem="115" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width"/>
+                            <constraint id="513" firstItem="8bC-Xf-vdC" firstAttribute="trailing" secondItem="18" secondAttribute="trailing" constant="20"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="TodayView" destination="18" id="name-outlet-18"/>
+                        <outlet property="TomorrowView" destination="64" id="name-outlet-64"/>
+                        <outlet property="ThisWeakView" destination="77" id="name-outlet-77"/>
+                        <outlet property="NextWeakView" destination="82" id="name-outlet-82"/>
+                        <outlet property="PlusButton" destination="115" id="name-outlet-115"/>
+                        <outlet property="TodayTasksCounterLabel" destination="39" id="name-outlet-39"/>
+                        <outlet property="TomorrowTasksCounterLabel" destination="73" id="name-outlet-73"/>
+                        <outlet property="ThisWeakCounterLabel" destination="88" id="name-outlet-88"/>
+                        <outlet property="NextWeakCountreLabel" destination="105" id="name-outlet-105"/>
+                    </connections>
+                    <navigationItem title="Title" id="184" key="navigationItem"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <scene sceneID="122">
+            <objects>
+                <viewController id="123" sceneMemberID="viewController" customClass="EditTaskViewController" storyboardIdentifier="EditTaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="120"/>
+                        <viewControllerLayoutGuide type="bottom" id="121"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="124">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="507" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="28" y="87" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0" green="1" blue="1" alpha="1"/>
+                            </view>
+                        </subviews>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="125" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="774" y="-6"/>
+        </scene>
+        <scene sceneID="136">
+            <objects>
+                <navigationController id="137" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="139">
+                        <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue id="185" destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="140" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-878" y="0.0"/>
+        </scene>
+    </scenes>
+</document>
