@@ -19,6 +19,7 @@ namespace PlansUniversal
 				var connection = new SQLiteAsyncConnection(path);
 				{
 					connection.CreateTableAsync<MainTask>();
+					connection.CreateTableAsync<SubTask>();
 					return "Database created";
 				}
 

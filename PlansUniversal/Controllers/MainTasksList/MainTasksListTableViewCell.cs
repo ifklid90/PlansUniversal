@@ -31,11 +31,9 @@ namespace PlansUniversal
 			ContentView.Add(TitleLabel);
 			TitleLabel.TranslatesAutoresizingMaskIntoConstraints = false;
 			TitleLabel.TopAnchor.ConstraintEqualTo(TitleLabel.Superview.TopAnchor).Active = true;
-			TitleLabel.LeftAnchor.ConstraintEqualTo(TitleLabel.Superview.LeftAnchor).Active = true;
+			TitleLabel.LeftAnchor.ConstraintEqualTo(TitleLabel.Superview.LeftAnchor, 10).Active = true;
 			TitleLabel.RightAnchor.ConstraintEqualTo(TitleLabel.Superview.RightAnchor).Active = true;
 			TitleLabel.BottomAnchor.ConstraintEqualTo(TitleLabel.Superview.BottomAnchor).Active = true;
-
-
 		}
 	}
 }

@@ -1,21 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using UIKit;
+using System.Collections.Generic;
 using Foundation;
+
 namespace PlansUniversal
 {
-	public class MainTasksList : UIViewController, IUITableViewDataSource, IUITableViewDelegate
+	public class SubtasksList : UIViewController, IUITableViewDelegate, IUITableViewDataSource
 	{
-		public List<MainTask> tasksList;
+		public MainTask Task;
+		public List<SubTask> subtasksList;
 
 		private UITableView tableView;
 
-		public MainTasksList()
+		public SubtasksList() : base()
 		{
 		}
 
 		public override void ViewDidLoad()
 		{
+			base.ViewDidLoad();
 			base.ViewDidLoad();
 			tableView = new UITableView();
 			tableView.RegisterClassForCellReuse(typeof(MainTasksListTableViewCell), "cell");
@@ -27,23 +30,20 @@ namespace PlansUniversal
 			tableView.BottomAnchor.ConstraintEqualTo(tableView.Superview.BottomAnchor).Active = true;
 			tableView.DataSource = this;
 			tableView.Delegate = this;
+			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Добавить", UIBarButtonItemStyle.Plain, AddButtonTapped);
 
-			NavigationItem.RightBarButtonItem = new UIBarButtonItem("Edit", UIBarButtonItemStyle.Plain, SwitchEditingMode);
+			subtasksList = Database.GetSubtasksByMainTaskID(Task.ID);
 		}
 
 		public nint RowsInSection(UITableView tableview, nint section)
 		{
-			if (tasksList != null)
-
-				return tasksList.Count;
-			else
-				return 0;
+			return subtasksList.Count;
 		}
 
 		public UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			var cell = (MainTasksListTableViewCell)tableView.DequeueReusableCell("cell", indexPath);
-			cell.TitleLabel.Text = tasksList[indexPath.Row].Title;
+			cell.TitleLabel.Text = subtasksList[indexPath.Row].Title;
 			return cell;
 		}
 
@@ -58,9 +58,9 @@ namespace PlansUniversal
 		{
 			if (editingStyle == UITableViewCellEditingStyle.Delete)
 			{
-				var task = tasksList[indexPath.Row];
-				Database.DeleteMainTaskById(task.ID);
-				tasksList.RemoveAt(indexPath.Row);
+				var task = subtasksList[indexPath.Row];
+				Database.DeleteSubtaskByID(task.ID);
+				subtasksList.RemoveAt(indexPath.Row);
 				tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 			}
 		}
@@ -71,27 +71,31 @@ namespace PlansUniversal
 			return "Удалить";
 		}
 
-		private void SwitchEditingMode(object sender, EventArgs e)
+		private void AddButtonTapped(object sender, EventArgs e)
 		{
-			if (tableView.Editing == true)
-			{
-				tableView.Editing = false;
-				NavigationItem.RightBarButtonItem.Title = "Edit";
-			}
-			else
-			{
-				tableView.Editing = true;
-				NavigationItem.RightBarButtonItem.Title = "Done";
-			}
-		}
 
-		[Export("tableView:didSelectRowAtIndexPath:")]
-		public void RowSelected(UITableView tableView, NSIndexPath indexPath)
-		{
-			var task = tasksList[indexPath.Row];
-			var vc = new MainTaskViewController();
-			vc.Task = task;
-			NavigationController.PushViewController(vc, true);
+			UIAlertController alertController = UIAlertController.Create("Новая подзадача", "", UIAlertControllerStyle.Alert);
+			alertController.AddTextField((obj) =>
+			{
+				obj.Placeholder = "Текст";
+			});
+
+			UIAlertAction saveAction = UIAlertAction.Create("Сохранить", UIAlertActionStyle.Default, (obj) =>
+			{
+				UITextField tf = alertController.TextFields[0];
+				var sub = new SubTask();
+				sub.Title = tf.Text;
+				sub.SuperTaskID = Task.ID;
+				Database.SaveSubtask(sub);
+				subtasksList = Database.GetSubtasksByMainTaskID(Task.ID);
+				tableView.ReloadData();
+			});
+
+			UIAlertAction cancelAction = UIAlertAction.Create("Отмена", UIAlertActionStyle.Cancel, null);
+
+			alertController.AddAction(saveAction);
+			alertController.AddAction(cancelAction);
+			PresentViewController(alertController, true, null);
 		}
 	}
 }

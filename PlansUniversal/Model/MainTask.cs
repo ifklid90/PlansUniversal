@@ -7,6 +7,8 @@ namespace PlansUniversal
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
 		public string Title { get; set; }
+		public string Comment { get; set; }
+		public bool Done { get; set; }
 		public DateTime Date { get; set; }
 		public DateTime Time { get; set; }
 		public string Description { get; set; }

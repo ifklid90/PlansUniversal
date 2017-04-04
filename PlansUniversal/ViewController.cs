@@ -26,6 +26,8 @@ namespace PlansUniversal
 			// Perform any additional setup after loading the view, typically from a nib.
 			NavigationController.NavigationBar.Translucent = false;
 
+			Title = "Главная";
+
 			TodayView.AddGestureRecognizer(new UITapGestureRecognizer(TidayView_TouchUpInside));
 			TomorrowView.AddGestureRecognizer(new UITapGestureRecognizer(TomorrowView_TouchUpInside));
 			ThisWeakView.AddGestureRecognizer(new UITapGestureRecognizer(ThisWeekView_TouchUpInside));
@@ -77,7 +79,7 @@ namespace PlansUniversal
 			
 		}
 
-		public override void ViewDidAppear(bool animated)
+		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
 			TodayTasksCounterLabel.Text = Database.CountTodayTasks().ToString();

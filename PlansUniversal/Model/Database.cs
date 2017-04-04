@@ -18,6 +18,14 @@ namespace PlansUniversal
 			}
 		}
 
+		public static void SaveSubtask(SubTask task)
+		{
+			using (var conn = new SQLite.SQLiteConnection(Database.dbPath))
+			{
+				conn.Insert(task);
+			}
+		}
+
 		public static int CountTasks()
 		{
 			using (var conn = new SQLite.SQLiteConnection(Database.dbPath))
@@ -66,6 +74,15 @@ namespace PlansUniversal
 			}
 		}
 
+		public static List<SubTask> GetSubtasksByMainTaskID(int ID)
+		{
+			using (var conn = new SQLite.SQLiteConnection(Database.dbPath))
+			{
+				return conn.Query<SubTask>("SELECT * FROM SubTask WHERE [SuperTaskID] == " + ID);
+			}
+		}
+
+
 		public static int CountNextWeekTasks()
 		{
 			using (var conn = new SQLite.SQLiteConnection(Database.dbPath))
@@ -104,6 +121,15 @@ namespace PlansUniversal
 			using (var conn = new SQLite.SQLiteConnection(Database.dbPath))
 			{
 				conn.Delete<MainTask>(id);
+				//TODO удаление всех сабтасков
+			}
+		}
+
+		public static void DeleteSubtaskByID(int id)
+		{
+			using (var conn = new SQLite.SQLiteConnection(Database.dbPath))
+			{
+				conn.Delete<SubTask>(id);
 			}
 		}
 	}

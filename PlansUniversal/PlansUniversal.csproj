@@ -128,6 +128,9 @@
     <Compile Include="DateExtensions.cs" />
     <Compile Include="Controllers\MainTasksList\MainTasksList.cs" />
     <Compile Include="Controllers\MainTasksList\MainTasksListTableViewCell.cs" />
+    <Compile Include="Controllers\MainTaskViewController.cs" />
+    <Compile Include="Model\SubTask.cs" />
+    <Compile Include="Controllers\MainTasksList\SubtasksList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
