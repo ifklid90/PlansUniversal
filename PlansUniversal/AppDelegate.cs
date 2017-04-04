@@ -53,6 +53,8 @@ namespace PlansUniversal
 			//	//Console.WriteLine(q[0].Title);
 			//}
 
+			Window.RootViewController = new UINavigationController(new DashboardViewController());
+
 			return true;
 		}
 

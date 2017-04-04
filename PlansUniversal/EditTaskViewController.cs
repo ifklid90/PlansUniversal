@@ -107,7 +107,7 @@ namespace PlansUniversal
 			saveButton.WidthAnchor.ConstraintEqualTo(200).Active = true;
 			saveButton.HeightAnchor.ConstraintEqualTo(40).Active = true;
 			saveButton.SetTitle("Save", UIControlState.Normal);
-			saveButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+			saveButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 			saveButton.TouchUpInside += SaveButton_TouchUpInside;
 		}
 

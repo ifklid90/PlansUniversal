@@ -35,6 +35,13 @@ namespace PlansUniversal
 
 		}
 
+		public override void ViewDidLayoutSubviews()
+		{
+			base.ViewDidLayoutSubviews();
+			TodayView.Frame = new CoreGraphics.CGRect(0, 0, View.Frame.Width, 30);
+			TodayView.LayoutIfNeeded();
+		}
+
 		public override void DidReceiveMemoryWarning()
 		{
 			base.DidReceiveMemoryWarning();

@@ -82,7 +82,7 @@ namespace PlansUniversal
 			subtasksButton.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 10).Active = true;
 			subtasksButton.RightAnchor.ConstraintEqualTo(subtasksButton.Superview.RightAnchor, -10).Active = true;
 			subtasksButton.SetTitle("Список подзадач", UIControlState.Normal);
-			subtasksButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+			subtasksButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 			subtasksButton.TouchUpInside += SubtasksButton_TouchUpInside;
 
 		}
