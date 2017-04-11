@@ -2,8 +2,12 @@
 using CoreGraphics;
 using UIKit;
 using Foundation;
-using UIKit;
 using System.Collections.Generic;
+using CoreLocation;
+using System.Drawing;
+using Plugin.Media;
+using MapKit;
+using System.Threading.Tasks;
 
 namespace PlansUniversal
 {
@@ -18,7 +22,9 @@ namespace PlansUniversal
 		private UITextView commentTextView;
 		private UIButton saveButton;
 		private DateTime date;
-
+		private UIButton img_UploadImage;
+		private UIButton chooseLocation;
+		private MKMapView map;
 
 
 
@@ -73,7 +79,7 @@ namespace PlansUniversal
 			dateTextField.Text = date.ToShortDateString();
 
 			dateDatePicker = new UIDatePicker();
-			dateDatePicker.Mode = UIDatePickerMode.Date;
+			dateDatePicker.Mode = UIDatePickerMode.DateAndTime;
 			dateTextField.InputView = dateDatePicker;
 			dateDatePicker.ValueChanged += DateDatePicker_ValueChanged;
 
@@ -99,10 +105,73 @@ namespace PlansUniversal
 			commentTextView.Layer.BorderWidth = 1;
 			commentTextView.Layer.BorderColor = UIColor.FromRGB(229, 228, 229).CGColor;
 
+			//photo = new UIImageView();
+			//photo.BackgroundColor = UIColor.Black;
+
+			//containerView.Add(photo);
+			//photo.TranslatesAutoresizingMaskIntoConstraints = false;
+			//photo.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 5).Active = true;
+			//photo.RightAnchor.ConstraintEqualTo(photo.Superview.RightAnchor, 50).Active = true;
+			//photo.LeftAnchor.ConstraintEqualTo(photo.Superview.LeftAnchor, 280).Active = true;
+			//photo.WidthAnchor.ConstraintEqualTo(70).Active = true;
+			//photo.HeightAnchor.ConstraintEqualTo(70).Active = true;
+			//photo.Layer.BorderWidth = 1;
+			//photo.Layer.BorderColor = UIColor.FromRGB(229, 228, 229).CGColor;
+			//photo.tou
+
+			img_UploadImage = new UIButton(UIButtonType.Custom);
+			img_UploadImage.BackgroundColor = UIColor.Gray;
+			img_UploadImage.SetTitle("фото", UIControlState.Normal);
+			img_UploadImage.Font.WithSize(10);
+			img_UploadImage.Frame = new RectangleF(300, 200, 70, 70);
+			containerView.Add(img_UploadImage);
+			img_UploadImage.TouchUpInside += async(sender, e) => { 
+				await CrossMedia.Current.Initialize();
+				if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+				{
+					UIAlertView alert = new UIAlertView("Ошибка", "Камера недоступна!", null, "Ok");
+					alert.Show();
+					return;
+
+				}
+
+				var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+				{
+					Directory = "Sample",
+					Name = "test.jpg"
+				});
+
+				if (file == null)
+					return;
+
+				img_UploadImage.SetImage(UIImage.FromFile(file.Path),UIControlState.Normal);
+				file.Dispose();
+
+			};
+			chooseLocation = new UIButton(UIButtonType.System);
+			chooseLocation.SetTitle("Геопозиция", UIControlState.Normal);
+			chooseLocation.Font.WithSize(10);
+			chooseLocation.Frame = new RectangleF(150, 200, 120, 70);
+
+
+			chooseLocation.TouchUpInside += (sender, e) => { 
+		 map = new MKMapView(UIScreen.MainScreen.Bounds);
+			
+				View.AddSubview(map);
+				CLLocationManager locationManager = new CLLocationManager();
+				locationManager.RequestWhenInUseAuthorization();
+				map.ShowsUserLocation = true;
+				var tapRecogniser = new UITapGestureRecognizer(this, new ObjCRuntime.Selector("MapTapSelector:"));
+				map.AddGestureRecognizer(tapRecogniser);
+
+			};
+
+
+			containerView.Add(chooseLocation);
 			saveButton = new UIButton();
 			containerView.AddSubview(saveButton);
 			saveButton.TranslatesAutoresizingMaskIntoConstraints = false;
-			saveButton.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 10).Active = true;
+			saveButton.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 120).Active = true;
 			saveButton.CenterXAnchor.ConstraintEqualTo(titleTextField.CenterXAnchor).Active = true;
 			saveButton.WidthAnchor.ConstraintEqualTo(200).Active = true;
 			saveButton.HeightAnchor.ConstraintEqualTo(40).Active = true;
@@ -110,13 +179,42 @@ namespace PlansUniversal
 			saveButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 			saveButton.TouchUpInside += SaveButton_TouchUpInside;
 		}
-
+		public static Task<int> ShowAlert(string title, string message, params string[] buttons)
+		{
+			var tcs = new TaskCompletionSource<int>();
+			var alert = new UIAlertView
+			{
+				Title = title,
+				Message = message
+			};
+			foreach (var button in buttons)
+				alert.AddButton(button);
+			alert.Clicked += (s, e) => tcs.TrySetResult((int)e.ButtonIndex);
+			alert.Show();
+			return tcs.Task;
+		}
 		public override void DidReceiveMemoryWarning()
 		{
 			base.DidReceiveMemoryWarning();
 			// Release any cached data, images, etc that aren't in use.
 		}
+		[Export("MapTapSelector:")]
+		protected async void OnMapTapped(UIGestureRecognizer sender)
+		{
+			CLLocationCoordinate2D tappedLocationCoord = map.ConvertPoint(sender.LocationInView(map), map);
 
+			map.RemoveAnnotations(map.Annotations);
+			map.AddAnnotations(new MKPointAnnotation()
+			{
+				Title = "Выбранная геопозиция",
+				Coordinate = tappedLocationCoord
+			});
+			int button = await ShowAlert("Вы уверены?", "Выбрать геопозицию?", "Да", "Нет");
+			if (button == 0)
+			{
+				map.RemoveFromSuperview();
+			}
+		}
 		private void SaveButton_TouchUpInside(object sender, EventArgs e)
 		{
 			if (!AreFieldsValid()) return;
@@ -124,7 +222,21 @@ namespace PlansUniversal
 			MainTask newTask = new MainTask();
 			newTask.Title = titleTextField.Text;
 			newTask.Date = date;
+			newTask.Time = date;
 			newTask.Comment = commentTextView.Text;
+			if (img_UploadImage.CurrentImage != null)
+			{
+				NSData imageData = img_UploadImage.CurrentImage.AsJPEG(0.5f);
+
+				string encodedImage = imageData.GetBase64EncodedData(NSDataBase64EncodingOptions.None).ToString();
+				newTask.Image = encodedImage;
+			}
+			else
+			{
+				newTask.Image = "";
+			}
+			newTask.Longtitude = map.Annotations[0].Coordinate.Longitude;
+			newTask.Latitude = map.Annotations[0].Coordinate.Latitude;
 			Database.saveTask(newTask);
 			Console.WriteLine("Count = " + Database.CountTasks());
 
@@ -141,6 +253,21 @@ namespace PlansUniversal
 			{
 				Console.WriteLine(t);
 			}
+
+			#region CreateNotification
+			var notification = new UILocalNotification();
+
+			notification.FireDate = dateDatePicker.Date;
+
+			notification.AlertAction = newTask.Title;
+			notification.AlertBody = newTask.Comment;
+
+			notification.ApplicationIconBadgeNumber = 1;
+
+			notification.SoundName = UILocalNotification.DefaultSoundName;
+
+			UIApplication.SharedApplication.ScheduleLocalNotification(notification);
+			#endregion
 
 			NavigationController.PopViewController(true);
 		}
