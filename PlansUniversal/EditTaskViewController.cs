@@ -123,22 +123,27 @@ namespace PlansUniversal
 			img_UploadImage.BackgroundColor = UIColor.Gray;
 			img_UploadImage.SetTitle("фото", UIControlState.Normal);
 			img_UploadImage.Font.WithSize(10);
-			img_UploadImage.Frame = new RectangleF(300, 200, 70, 70);
+
 			containerView.Add(img_UploadImage);
+			img_UploadImage.TranslatesAutoresizingMaskIntoConstraints = false;
+			img_UploadImage.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 10).Active = true;
+			img_UploadImage.RightAnchor.ConstraintEqualTo(img_UploadImage.Superview.RightAnchor, -10).Active = true;
+			img_UploadImage.WidthAnchor.ConstraintEqualTo(70).Active = true;
+			img_UploadImage.HeightAnchor.ConstraintEqualTo(70).Active = true;
+
 			img_UploadImage.TouchUpInside += async(sender, e) => { 
 				await CrossMedia.Current.Initialize();
-				if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+			 	if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
 				{
 					UIAlertView alert = new UIAlertView("Ошибка", "Камера недоступна!", null, "Ok");
 					alert.Show();
 					return;
-
 				}
 
 				var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
 				{
 					Directory = "Sample",
-					Name = "test.jpg"
+					Name = "test1.jpg"
 				});
 
 				if (file == null)
@@ -151,7 +156,7 @@ namespace PlansUniversal
 			chooseLocation = new UIButton(UIButtonType.System);
 			chooseLocation.SetTitle("Геопозиция", UIControlState.Normal);
 			chooseLocation.Font.WithSize(10);
-			chooseLocation.Frame = new RectangleF(150, 200, 120, 70);
+			//chooseLocation.Frame = new RectangleF(150, 200, 120, 70);
 
 
 			chooseLocation.TouchUpInside += (sender, e) => { 
@@ -168,6 +173,11 @@ namespace PlansUniversal
 
 
 			containerView.Add(chooseLocation);
+			chooseLocation.TranslatesAutoresizingMaskIntoConstraints = false;
+			chooseLocation.TopAnchor.ConstraintEqualTo(img_UploadImage.BottomAnchor, 10).Active = true;
+			chooseLocation.RightAnchor.ConstraintEqualTo(chooseLocation.Superview.RightAnchor, -10).Active = true;
+
+
 			saveButton = new UIButton();
 			containerView.AddSubview(saveButton);
 			saveButton.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -177,6 +187,7 @@ namespace PlansUniversal
 			saveButton.HeightAnchor.ConstraintEqualTo(40).Active = true;
 			saveButton.SetTitle("Save", UIControlState.Normal);
 			saveButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+			//saveButton.TouchUpInside += SaveButton_TouchUpInside;
 			saveButton.TouchUpInside += SaveButton_TouchUpInside;
 		}
 		public static Task<int> ShowAlert(string title, string message, params string[] buttons)
@@ -215,6 +226,7 @@ namespace PlansUniversal
 				map.RemoveFromSuperview();
 			}
 		}
+
 		private void SaveButton_TouchUpInside(object sender, EventArgs e)
 		{
 			if (!AreFieldsValid()) return;
@@ -235,8 +247,12 @@ namespace PlansUniversal
 			{
 				newTask.Image = "";
 			}
-			newTask.Longtitude = map.Annotations[0].Coordinate.Longitude;
-			newTask.Latitude = map.Annotations[0].Coordinate.Latitude;
+			if (map != null)
+			{
+				newTask.Longtitude = map.Annotations[0].Coordinate.Longitude;
+				newTask.Latitude = map.Annotations[0].Coordinate.Latitude;
+			}
+
 			Database.saveTask(newTask);
 			Console.WriteLine("Count = " + Database.CountTasks());
 

@@ -83,17 +83,31 @@ namespace PlansUniversal
 			commentTextView.Layer.BorderColor = UIColor.FromRGB(229, 228, 229).CGColor;
 			commentTextView.Editable = false;
 
+			subtasksButton = new UIButton();
+			containerView.AddSubview(subtasksButton);
+			subtasksButton.TranslatesAutoresizingMaskIntoConstraints = false;
+			subtasksButton.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 10).Active = true;
+			subtasksButton.RightAnchor.ConstraintEqualTo(subtasksButton.Superview.RightAnchor, -10).Active = true;
+			subtasksButton.SetTitle("Список подзадач", UIControlState.Normal);
+			subtasksButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+			subtasksButton.TouchUpInside += SubtasksButton_TouchUpInside;
+
 
 			imageView = new UIImageView();
 
-			imageView.Frame = new RectangleF(250, 200, 100, 100);
+			//imageView.Frame = new RectangleF(250, 200, 100, 100);
 			imageView.BackgroundColor = UIColor.Gray;
 
 			containerView.Add(imageView);
+			imageView.TranslatesAutoresizingMaskIntoConstraints = false;
+			imageView.TopAnchor.ConstraintEqualTo(subtasksButton.BottomAnchor, 10).Active = true;
+			imageView.RightAnchor.ConstraintEqualTo(imageView.Superview.RightAnchor, -10).Active = true;
+			imageView.HeightAnchor.ConstraintEqualTo(70).Active = true;
+			imageView.WidthAnchor.ConstraintEqualTo(70).Active = true;
+
 			showLocation = new UIButton(UIButtonType.System);
 			showLocation.SetTitle("Геопозиция", UIControlState.Normal);
 			showLocation.Font.WithSize(10);
-			showLocation.Frame = new RectangleF(100, 200, 120, 70);
 			map = new MKMapView(UIScreen.MainScreen.Bounds);
 			showLocation.TouchUpInside += (sender, e) =>
 			{
@@ -104,14 +118,11 @@ namespace PlansUniversal
 
 			};
 			containerView.Add(showLocation);
-			subtasksButton = new UIButton();
-			containerView.AddSubview(subtasksButton);
-			subtasksButton.TranslatesAutoresizingMaskIntoConstraints = false;
-			subtasksButton.TopAnchor.ConstraintEqualTo(commentTextView.BottomAnchor, 10).Active = true;
-			subtasksButton.RightAnchor.ConstraintEqualTo(subtasksButton.Superview.RightAnchor, -10).Active = true;
-			subtasksButton.SetTitle("Список подзадач", UIControlState.Normal);
-			subtasksButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-			subtasksButton.TouchUpInside += SubtasksButton_TouchUpInside;
+			showLocation.TranslatesAutoresizingMaskIntoConstraints = false;
+			showLocation.TopAnchor.ConstraintEqualTo(imageView.BottomAnchor, 10).Active = true;
+			showLocation.RightAnchor.ConstraintEqualTo(showLocation.Superview.RightAnchor, -10).Active = true;
+
+
 
 		}
 
