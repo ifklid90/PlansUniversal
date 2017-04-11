@@ -2,6 +2,10 @@
 using UIKit;
 using CoreGraphics;
 using Foundation;
+using System.Drawing;
+using MapKit;
+using CoreLocation;
+
 namespace PlansUniversal
 {
 	public class MainTaskViewController : UIViewController
@@ -14,6 +18,9 @@ namespace PlansUniversal
 		private UILabel commentDescriptionLabel;
 		private UITextView commentTextView;
 		private UIButton subtasksButton;
+		private UIImageView imageView;
+		private UIButton showLocation;
+		private MKMapView map;
 
 		public MainTaskViewController(): base()
 		{
@@ -76,6 +83,27 @@ namespace PlansUniversal
 			commentTextView.Layer.BorderColor = UIColor.FromRGB(229, 228, 229).CGColor;
 			commentTextView.Editable = false;
 
+
+			imageView = new UIImageView();
+
+			imageView.Frame = new RectangleF(250, 200, 100, 100);
+			imageView.BackgroundColor = UIColor.Gray;
+
+			containerView.Add(imageView);
+			showLocation = new UIButton(UIButtonType.System);
+			showLocation.SetTitle("Геопозиция", UIControlState.Normal);
+			showLocation.Font.WithSize(10);
+			showLocation.Frame = new RectangleF(100, 200, 120, 70);
+			map = new MKMapView(UIScreen.MainScreen.Bounds);
+			showLocation.TouchUpInside += (sender, e) =>
+			{
+				
+
+				View.AddSubview(map);
+
+
+			};
+			containerView.Add(showLocation);
 			subtasksButton = new UIButton();
 			containerView.AddSubview(subtasksButton);
 			subtasksButton.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -94,6 +122,17 @@ namespace PlansUniversal
 			Title = Task.Title;
 			taskNameLabel.Text = Task.Title;
 			commentTextView.Text = Task.Comment;
+			if (Task.Image != "")
+			{
+				byte[] encodedDataAsBytes = System.Convert.FromBase64String(Task.Image);
+				NSData data = NSData.FromArray(encodedDataAsBytes);
+				imageView.Image = UIImage.LoadFromData(data);
+			}
+			map.AddAnnotation(new MKPointAnnotation()
+			{
+				Title = "Выбранная геопозиция",
+				Coordinate = new CLLocationCoordinate2D(Task.Latitude, Task.Longtitude)
+			});
 		}
 
 		private void SubtasksButton_TouchUpInside(object sender, EventArgs e)
