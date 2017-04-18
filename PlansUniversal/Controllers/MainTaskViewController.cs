@@ -111,18 +111,12 @@ namespace PlansUniversal
 			map = new MKMapView(UIScreen.MainScreen.Bounds);
 			showLocation.TouchUpInside += (sender, e) =>
 			{
-				
-
 				View.AddSubview(map);
-
-
 			};
 			containerView.Add(showLocation);
 			showLocation.TranslatesAutoresizingMaskIntoConstraints = false;
 			showLocation.TopAnchor.ConstraintEqualTo(imageView.BottomAnchor, 10).Active = true;
 			showLocation.RightAnchor.ConstraintEqualTo(showLocation.Superview.RightAnchor, -10).Active = true;
-
-
 
 		}
 

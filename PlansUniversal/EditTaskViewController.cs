@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PlansUniversal
 {
-	public partial class EditTaskViewController : UIViewController
+	public partial class EditTaskViewController : UIViewController, PhotosSearchControllerDelegate
 	{
 		private UIScrollView scrollView;
 		private UIView containerView;
@@ -131,28 +131,7 @@ namespace PlansUniversal
 			img_UploadImage.WidthAnchor.ConstraintEqualTo(70).Active = true;
 			img_UploadImage.HeightAnchor.ConstraintEqualTo(70).Active = true;
 
-			img_UploadImage.TouchUpInside += async(sender, e) => { 
-				await CrossMedia.Current.Initialize();
-			 	if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-				{
-					UIAlertView alert = new UIAlertView("Ошибка", "Камера недоступна!", null, "Ok");
-					alert.Show();
-					return;
-				}
-
-				var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-				{
-					Directory = "Sample",
-					Name = "test1.jpg"
-				});
-
-				if (file == null)
-					return;
-
-				img_UploadImage.SetImage(UIImage.FromFile(file.Path),UIControlState.Normal);
-				file.Dispose();
-
-			};
+			img_UploadImage.TouchUpInside += ImageButton_TouchUpInside;
 			chooseLocation = new UIButton(UIButtonType.System);
 			chooseLocation.SetTitle("Геопозиция", UIControlState.Normal);
 			chooseLocation.Font.WithSize(10);
@@ -296,6 +275,47 @@ namespace PlansUniversal
 
 		}
 
+		private void ImageButton_TouchUpInside(object sender, EventArgs e)
+		{
+			UIAlertController alertController = UIAlertController.Create("Источник фото", null, UIAlertControllerStyle.ActionSheet);
+			UIAlertAction fromCameraAction = UIAlertAction.Create("Камера", UIAlertActionStyle.Default, async (UIAlertAction obj) =>
+			{
+				await GetImageFromCamera();
+			});
+			UIAlertAction fromInternetAction = UIAlertAction.Create("Из интернета", UIAlertActionStyle.Default, (obj) =>
+		   	{
+			   var searchController = new PhotosSearchController();
+				searchController.Delegate = this;
+			   NavigationController.PushViewController(searchController, true);
+			});
+			alertController.AddAction(fromCameraAction);
+			alertController.AddAction(fromInternetAction);
+			PresentViewController(alertController, true, null);
+		}
+
+		private async Task GetImageFromCamera()
+		{
+				await CrossMedia.Current.Initialize();
+			 	if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+				{
+					UIAlertView alert = new UIAlertView("Ошибка", "Камера недоступна!", null, "Ok");
+					alert.Show();
+					return;
+				}
+
+				var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+				{
+					Directory = "Sample",
+					Name = "test1.jpg"
+				});
+
+				if (file == null)
+					return;
+
+				img_UploadImage.SetImage(UIImage.FromFile(file.Path),UIControlState.Normal);
+				file.Dispose();
+		}
+
 		private bool AreFieldsValid()
 		{
 			var taskName = titleTextField.Text;
@@ -311,6 +331,11 @@ namespace PlansUniversal
 			}
 
 			return !isEmpty;
+		}
+
+		public void ImageSelected(UIImage image)
+		{
+			img_UploadImage.SetImage(image, UIControlState.Normal);
 		}
 	}
 }

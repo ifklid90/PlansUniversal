@@ -47,7 +47,7 @@ namespace PlansUniversal
 			}
 				Console.WriteLine(createDatabase(Database.dbPath));
 
-
+			//Window.RootViewController = new PhotosSearchController();
 			Window.RootViewController = new UINavigationController(new DashboardViewController());
 			if (launchOptions != null)
 			{

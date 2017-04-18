@@ -21,8 +21,6 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <IOSDebuggerPort>56349</IOSDebuggerPort>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
@@ -37,8 +35,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
@@ -54,8 +50,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
@@ -74,8 +68,6 @@
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
@@ -105,6 +97,7 @@
     <Folder Include="Model\" />
     <Folder Include="Controllers\" />
     <Folder Include="Controllers\MainTasksList\" />
+    <Folder Include="Controllers\PhotosSearch\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -138,6 +131,13 @@
     <Compile Include="Model\SubTask.cs" />
     <Compile Include="Controllers\DashboardViewController.cs" />
     <Compile Include="Controllers\SubtasksList.cs" />
+    <Compile Include="Model\Flickr.cs" />
+    <Compile Include="Controllers\PhotosSearch\PhotosSearchController.cs" />
+    <Compile Include="Controllers\PhotosSearch\PhotosSearchCell.cs" />
+    <Compile Include="Controllers\PhotosSearch\BaseTableViewController.cs" />
+    <Compile Include="Controllers\PhotosSearch\ResultsTableController.cs" />
+    <Compile Include="Model\FlickrPhoto.cs" />
+    <Compile Include="Controllers\PhotosSearch\PhotosSearchControllerDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
